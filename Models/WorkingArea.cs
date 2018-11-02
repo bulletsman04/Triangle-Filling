@@ -85,15 +85,18 @@ namespace Models
         }
         public void RepaintBitmap()
         {
+            // Tu własne wypełnianie
+            
             using (Graphics gr = Graphics.FromImage(Bitmap))
             {
                 gr.Clear(Color.White);
+                MyGraphics mg = new MyGraphics(Bitmap);
+                mg.FillPolygon(Triangle1);
                 DrawPolygon(Triangle1,gr);
                 DrawPolygon(Triangle2,gr);
             }
 
-            // Tu własne wypełnianie
-
+            
             ImageSource = BitmapToImageSource(Bitmap);
 
 
@@ -103,26 +106,23 @@ namespace Models
         {
            
                 
-                Pen pen = new Pen(Color.Black, 2);
+                Pen pen = new Pen(Color.Orange, 2);
                 Brush brush = new SolidBrush(Color.Blue);
 
 
 
 
-                foreach (var edge in triangle.Edges)
-                {
+            foreach (var edge in triangle.Edges)
+            {
+                gr.DrawLine(pen, edge.Left.X, edge.Left.Y, edge.Right.X, edge.Right.Y);
+            }
 
-                    gr.DrawLine(pen,edge.Left.X, edge.Left.Y, edge.Right.X, edge.Right.Y);
+            foreach (Vertex v in triangle.Vertices)
+            {
+                gr.FillEllipse(brush, v.Rectangle);
+            }
 
-
-                }
-
-                foreach (Vertex v in triangle.Vertices)
-                {
-                   gr.FillEllipse(brush,v.Rectangle);
-                }
-
-                brush.Dispose();
+            brush.Dispose();
                 pen.Dispose();
             
         }

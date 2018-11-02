@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Edge.cs" />
     <Compile Include="Filling.cs" />
+    <Compile Include="MyGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
