@@ -23,6 +23,7 @@ namespace Models
         public Triangle Triangle1 { get; set; }
         public Triangle Triangle2 { get; set; }
         public Bitmap Bitmap { get; set; }
+        public Settings Settings { get; set; }
         public ImageSource ImageSource
         {
             get => _imageSource;
@@ -32,9 +33,10 @@ namespace Models
                 RaisePropertyChanged("ImageSource");
             } }
 
-        public WorkingArea(int width, int height)
+        public WorkingArea(int width, int height, Settings settings)
         {
             Bitmap = new Bitmap(width,height);
+            Settings = settings;
             Graphics g= Graphics.FromImage(Bitmap);
             InitializeTriangles();
             RepaintBitmap();
@@ -44,7 +46,10 @@ namespace Models
         {
             Triangle1 = new Triangle();
             Triangle2 = new Triangle();
-
+            TriangleSettings settings1 = new TriangleSettings();
+            Triangle1.TriangleSettings = settings1;
+            Settings.TriangleSettingsList.Add(settings1);
+            Settings.RaiseEventListAdd();
             int x1, y1;
             x1 = Bitmap.Width / 10;
             y1 = Bitmap.Height / 8;

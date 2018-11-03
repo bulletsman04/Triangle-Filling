@@ -14,7 +14,7 @@
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <local:MenuView
@@ -31,8 +31,15 @@
             x:Name="CanvasView"
             x:FieldModifier="private" 
             DataContext="{Binding Path=CanvasViewModel, Mode=OneTime}"
-           
             >
         </local:CanvasView>
+        <local:SettingsView
+            Grid.Row="1"
+            Grid.Column="1"
+            x:Name="SettingsView"
+            x:FieldModifier="private" 
+            DataContext="{Binding Path=SettingsViewModel, Mode=OneTime}"
+        >
+        </local:SettingsView>
     </Grid>
 </UserControl>

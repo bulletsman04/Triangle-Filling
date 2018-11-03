@@ -83,7 +83,8 @@ namespace Models
                 {
                     for (int j = (int)Math.Round(AET[i].X); j < (int)Math.Round(AET[i+1].X); j++)
                     {
-                        _bitmap.SetPixel(j,y-1,Color.Black);
+                        // _bitmap.SetPixel(j,y-1,LibrariesConverters.ColorConverter(triangle.TriangleSettings.PickedColor));
+                        _bitmap.SetPixel(j, y - 1, triangle.TriangleSettings.PickedTriangleTexture.GetPixel(j% triangle.TriangleSettings.PickedTriangleTexture.Width,(y-1)% triangle.TriangleSettings.PickedTriangleTexture.Height));
                     }
                 }
 

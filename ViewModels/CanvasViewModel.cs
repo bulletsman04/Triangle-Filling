@@ -12,6 +12,7 @@ namespace ViewModels
     public class CanvasViewModel: ObservableObject
     {
         private WorkingArea _workingArea;
+        private Settings _settings;
         private Point _mousePoint;
         private Triangle _movedTriangle;
         public WorkingArea WorkingArea
@@ -24,8 +25,15 @@ namespace ViewModels
             } }
         public Vertex MovedVertex { get; set; }
 
-        public CanvasViewModel()
+        public Settings Settings
         {
+            get { return _settings; }
+            set { _settings = value; }
+        }
+
+        public CanvasViewModel(Settings settings)
+        {
+            Settings = settings;
         }
 
         public void HandleMouseDown(Point mousePoint)

@@ -11,6 +11,7 @@ namespace Models
     {
         public List<Vertex> Vertices { get; set; }
         public List<Edge> Edges { get; set; }
+        public TriangleSettings TriangleSettings { get; set; }
         public Triangle()
         {
             Vertices = new List<Vertex>();

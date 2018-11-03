@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Edge.cs" />
     <Compile Include="Filling.cs" />
+    <Compile Include="LibrariesConverters.cs" />
     <Compile Include="MyGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -73,7 +74,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Triangle.cs" />
+    <Compile Include="TriangleSettings.cs" />
     <Compile Include="Vector2D.cs" />
     <Compile Include="Vertex.cs" />
     <Compile Include="WorkingArea.cs" />
