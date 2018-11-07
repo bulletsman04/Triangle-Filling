@@ -15,11 +15,11 @@ namespace Models
     {
         private Color _lightColor = Color.FromArgb(255,255,255);
         private Point3D _lightPoint = new Point3D(300,-200,300);
-        private Bitmap _normalMap = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\normal_map.jpg");
-        private Bitmap _heightMap = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\heightmap.jpg");
+        private Bitmap _normalMap = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\brick_normalmap.png");
+        private Bitmap _heightMap = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\brick_heightmap.png");
         private Vector3 _normalVector = new Vector3(0, 0, 1);
         private Vector3 _heightVector = new Vector3(0, 0, 0);
-        private int _mPhong = 5;
+        private int _mPhong = 50;
         private bool _isLightConst = true;
         private bool _isNormalConst = false;
         private bool _isHeightConst = true;

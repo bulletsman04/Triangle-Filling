@@ -5,17 +5,18 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using PixelMapSharp;
 
 namespace Models
 {
     public class MyGraphics
     {
-        private Bitmap _bitmap;
+        private PixelMap _pixelMap;
         private Settings _settings;
 
-        public MyGraphics(Bitmap bitmap, Settings settings)
+        public MyGraphics(PixelMap pixelMap, Settings settings)
         {
-            _bitmap = bitmap;
+            _pixelMap = pixelMap;
             _settings = settings;
         }
         private class Node
@@ -101,7 +102,8 @@ namespace Models
                 {
                     for (int j = (int)Math.Round(AET[i].X); j < (int)Math.Round(AET[i + 1].X); j++)
                     {
-                        _bitmap.SetPixel(j, y - 1, CalculateColor(j, y - 1, triangle));
+
+                        _pixelMap[j, y - 1] = new Pixel(CalculateColor(j, y - 1, triangle));
                         //_bitmap.SetPixel(j, y - 1, triangle.TriangleSettings.PickedTriangleTexture.GetPixel(j% triangle.TriangleSettings.PickedTriangleTexture.Width,(y-1)% triangle.TriangleSettings.PickedTriangleTexture.Height));
                     }
                 }

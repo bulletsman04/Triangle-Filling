@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GKLab2"
         xmlns:view="clr-namespace:Views;assembly=Views"
         mc:Ignorable="d"
-        Title="GKLab2" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize">
+        Title="GKLab2"  WindowStyle="None" ResizeMode="NoResize">
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CaptionHeight="0"

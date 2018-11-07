@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MvvmFoundation.Wpf;
+using PixelMapSharp;
 using Brush = System.Drawing.Brush;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
@@ -23,6 +24,7 @@ namespace Models
         public Triangle Triangle1 { get; set; }
         public Triangle Triangle2 { get; set; }
         public Bitmap Bitmap { get; set; }
+        private PixelMap PixelMap { get; set; }
         public Settings Settings { get; set; }
         public ImageSource ImageSource
         {
@@ -36,6 +38,10 @@ namespace Models
         public WorkingArea(int width, int height, Settings settings)
         {
             Bitmap = new Bitmap(width,height);
+            using (Graphics g = Graphics.FromImage(Bitmap))
+            {
+                g.Clear(Color.White);
+            }
             Settings = settings;
            // Settings.ResizeBitmaps(width,height);
             InitializeTriangles();
@@ -81,6 +87,7 @@ namespace Models
             {
                 bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
                 memory.Position = 0;
+               
                 BitmapImage bitmapimage = new BitmapImage();
                 bitmapimage.BeginInit();
                 bitmapimage.StreamSource = memory;
@@ -93,18 +100,21 @@ namespace Models
         public void RepaintBitmap()
         {
             // Tu własne wypełnianie
-            
-            using (Graphics gr = Graphics.FromImage(Bitmap))
+            PixelMap = new PixelMap(Bitmap);
+            MyGraphics mg = new MyGraphics(PixelMap, Settings);
+            mg.FillPolygon(Triangle1);
+
+            Bitmap bitmap = PixelMap.GetBitmap();
+            using (Graphics gr = Graphics.FromImage(bitmap))
             {
-                gr.Clear(Color.White);
-                MyGraphics mg = new MyGraphics(Bitmap, Settings);
-                mg.FillPolygon(Triangle1);
+               // gr.Clear(Color.White);
+                
                 DrawPolygon(Triangle1,gr);
                 DrawPolygon(Triangle2,gr);
             }
 
             
-            ImageSource = BitmapToImageSource(Bitmap);
+            ImageSource = BitmapToImageSource(bitmap);
 
 
         }
