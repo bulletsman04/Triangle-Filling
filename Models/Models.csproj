@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -88,6 +89,21 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Textures\normal_map.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Textures\heightmap.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Textures\brick_normalmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Textures\brick_heightmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Textures\brick.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

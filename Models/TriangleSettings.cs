@@ -10,9 +10,9 @@ namespace Models
 {
     public class TriangleSettings:ObservableObject
     {
-        private bool isColor = true;
-        private System.Windows.Media.Color _pickedColor = System.Windows.Media.Color.FromRgb(1,1,1);
-        private Bitmap _pickedTriangleTexture = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Views\Icons\maximize.png");
+        private bool isColor = false;
+        private Color _pickedColor = Color.FromArgb(1,1,1);
+        private Bitmap _pickedTriangleTexture = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\normal_map.jpg");
         public bool IsColor
         {
             get { return isColor; }
@@ -23,7 +23,7 @@ namespace Models
             }
         }
 
-        public System.Windows.Media.Color PickedColor
+        public Color PickedColor
         {
             get => _pickedColor;
             set

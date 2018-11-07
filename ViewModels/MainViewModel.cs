@@ -28,19 +28,27 @@ namespace ViewModels
 
         public void RegisterPropertiesChanged()
         {
-            SettingsObserver = new PropertyObserver<Settings>(Settings).RegisterHandler(n => n.TriangleSettingsList,ListChangedHandler);
+            SettingsObserver = new PropertyObserver<Settings>(Settings)
+                .RegisterHandler(n => n.TriangleSettingsList,ListChangedHandler)
+                .RegisterHandler(n => n.LightPoint, ListChangedHandler);
         }
 
         private void ListChangedHandler(Settings s)
         {
             
-            TriangleSettingObserver = new PropertyObserver<TriangleSettings>(s.TriangleSettingsList[0]).RegisterHandler(n => n.PickedColor, PropertyChangedHandler);
+            TriangleSettingObserver = new PropertyObserver<TriangleSettings>(s.TriangleSettingsList[0]).RegisterHandler(n => n.PickedColor, PropertyChangedHandler)
+                .RegisterHandler(n => n.PickedTriangleTexture,PropertyChangedHandler)
+                .RegisterHandler(n => n.IsColor,PropertyChangedHandler)
+                ;
         }
 
         private void PropertyChangedHandler(TriangleSettings ts)
         {
             CanvasViewModel.WorkingArea?.RepaintBitmap();
         }
-
+        private void PropertyChangedHandler(Settings ts)
+        {
+            CanvasViewModel.WorkingArea?.RepaintBitmap();
+        }
     }
 }

@@ -9,9 +9,14 @@ namespace Models
 {
     public static class LibrariesConverters
     {
-        public static System.Drawing.Color ColorConverter(System.Windows.Media.Color color)
+        public static System.Drawing.Color ColorMediaConverter(System.Windows.Media.Color color)
         {
             return Color.FromArgb(color.R,color.G,color.B);
+        }
+
+        public static System.Windows.Media.Color ColorDrawingConverter(System.Drawing.Color color)
+        {
+            return System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Media3D;
 using Models;
 using MvvmFoundation.Wpf;
 
@@ -48,19 +49,23 @@ namespace ViewModels
         }
         public void HandleMouseMove(Point mousePoint)
         {
+            _settings.LightPoint = new Point3D(mousePoint.X, -mousePoint.Y, 300);
             if (MovedVertex != null)
             {
                 MovedVertex.X = (int)mousePoint.X;
                 MovedVertex.Y = (int) mousePoint.Y;
-                WorkingArea.RepaintBitmap();
+                //WorkingArea.RepaintBitmap();
+
             }
             else if (_movedTriangle != null)
             {
                 Vector2D vector = new Vector2D(_mousePoint,mousePoint);
                 WorkingArea.MoveTriangle(_movedTriangle,vector);
                 _mousePoint = mousePoint;
-                WorkingArea.RepaintBitmap();
+                //WorkingArea.RepaintBitmap();
             }
+                WorkingArea.RepaintBitmap();
+
         }
 
         public void HandleMouseUp()

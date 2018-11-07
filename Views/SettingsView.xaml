@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <converters:BoolConverter x:Key="BoolConverter" />
+        <converters:ColorConverter x:Key="ColorConverter" />
     </UserControl.Resources>
     <Grid>
          <Grid.RowDefinitions>
@@ -26,7 +27,7 @@
             <TextBlock>Trojkąt 1</TextBlock>
             <WrapPanel >
                 <RadioButton IsChecked="{Binding Settings.TriangleSettingsList[0].IsColor}" VerticalAlignment="Center" GroupName="Traingle1">Kolor</RadioButton>
-                <xctk:ColorPicker Margin="10 0 0 0" SelectedColor="{Binding Settings.TriangleSettingsList[0].PickedColor, Mode=TwoWay}" x:Name="_colorPicker"  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                <xctk:ColorPicker Margin="10 0 0 0" SelectedColor="{Binding Settings.TriangleSettingsList[0].PickedColor,Converter={StaticResource ColorConverter}, Mode=TwoWay}" x:Name="_colorPicker"  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
             </WrapPanel>
             <WrapPanel>
                 <RadioButton IsChecked="{Binding Settings.TriangleSettingsList[0].IsColor,Converter={StaticResource BoolConverter}}" GroupName="Traingle1">Tekstura</RadioButton>

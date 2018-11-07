@@ -37,7 +37,7 @@ namespace Models
         {
             Bitmap = new Bitmap(width,height);
             Settings = settings;
-            Graphics g= Graphics.FromImage(Bitmap);
+           // Settings.ResizeBitmaps(width,height);
             InitializeTriangles();
             RepaintBitmap();
         }
@@ -61,6 +61,8 @@ namespace Models
             Edge e3 = new Edge(v3, v1);
             Triangle1.Vertices.AddRange(new []{v1,v2,v3});
             Triangle1.Edges.AddRange(new []{e1,e2,e3});
+            Triangle1.V1StartPoint = new Point(x1,y1);
+            Triangle1.MoveVector = new Vector2D(Triangle1.V1StartPoint, Triangle1.V1StartPoint);
 
             Vertex v4 = new Vertex(Bitmap.Width - x1, Bitmap.Height- y1);
             Vertex v5 = new Vertex(Bitmap.Width - 3 * x1, Bitmap.Height - 3 * y1);
@@ -95,7 +97,7 @@ namespace Models
             using (Graphics gr = Graphics.FromImage(Bitmap))
             {
                 gr.Clear(Color.White);
-                MyGraphics mg = new MyGraphics(Bitmap);
+                MyGraphics mg = new MyGraphics(Bitmap, Settings);
                 mg.FillPolygon(Triangle1);
                 DrawPolygon(Triangle1,gr);
                 DrawPolygon(Triangle2,gr);
@@ -159,6 +161,8 @@ namespace Models
                 vertex.X += vector.Coordinates.X;
                 vertex.Y += vector.Coordinates.Y;
             }
+
+            triangle.MoveVector = triangle.MoveVector + vector;
         }
     }
 }

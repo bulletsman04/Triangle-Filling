@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,8 @@ namespace Models
         public List<Vertex> Vertices { get; set; }
         public List<Edge> Edges { get; set; }
         public TriangleSettings TriangleSettings { get; set; }
+        public Point V1StartPoint { get; set; }
+        public Vector2D MoveVector { get; set; }
         public Triangle()
         {
             Vertices = new List<Vertex>();

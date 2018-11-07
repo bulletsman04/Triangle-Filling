@@ -19,5 +19,10 @@ namespace Models
             _endPoint = endPoint;
             Coordinates = ((int)(endPoint.X - startPoint.X), (int)(endPoint.Y - startPoint.Y));
         }
+
+        public static Vector2D operator +(Vector2D v1, Vector2D v2)
+        {
+            return new Vector2D(v1._startPoint,new Point(v1._endPoint.X + v2.Coordinates.X,v1._endPoint.Y+v2.Coordinates.Y) );
+        }
     }
 }
