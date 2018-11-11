@@ -7,23 +7,30 @@ using System.Text;
 using System.Threading.Tasks;
 using MvvmFoundation.Wpf;
 using System.Numerics;
-using System.Windows.Media.Media3D;
+using System.Resources;
+using Models.Properties;
+using PixelMapSharp;
 
 namespace Models
 {
     public class Settings: ObservableObject
     {
+        private int _lightAnimRadius = 30;
         private Color _lightColor = Color.FromArgb(255,255,255);
-        private Point3D _lightPoint = new Point3D(300,-200,300);
-        private Bitmap _normalMap = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\brick_normalmap.png");
-        private Bitmap _heightMap = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\brick_heightmap.png");
+        private Point3D _lightPoint = new Point3D(300,-200,100);
+        private PixelMap _normalMap;
+        private PixelMap _heightMap;
         private Vector3 _normalVector = new Vector3(0, 0, 1);
         private Vector3 _heightVector = new Vector3(0, 0, 0);
         private int _mPhong = 50;
         private bool _isLightConst = true;
+        private bool _isLightMouse = false;
+        private bool _isLightAnimation = false;
         private bool _isNormalConst = false;
-        private bool _isHeightConst = true;
-        private bool _isPhong = true;
+        private bool _isHeightConst = false;
+        private bool _isPhong = false;
+        private  double _lambertRate = 1;
+        private double _phongRate = 0.2;
 
         private int width;
         private int height;
@@ -31,18 +38,13 @@ namespace Models
 
         public Settings()
         {
+          
+               _normalMap = PixelMap.SlowLoad(new Bitmap(Resources.normal_map));
+                _heightMap = PixelMap.SlowLoad(new Bitmap(Resources.heightmap));
+           
             TriangleSettingsList = new ObservableCollection<TriangleSettings>();
             
         }
-
-        public void ResizeBitmaps(int width, int height)
-        {
-            NormalMap = new Bitmap(NormalMap,width,height);
-            HeightMap = new Bitmap(HeightMap,width,height);
-            this.width = width;
-            this.height = height;
-        }
-
 
         public bool IsLightConst
         {
@@ -131,7 +133,7 @@ namespace Models
             }
         }
 
-        public Bitmap NormalMap
+        public PixelMap NormalMap
         {
             get { return _normalMap; }
             set
@@ -141,7 +143,7 @@ namespace Models
             }
         }
 
-        public Bitmap HeightMap
+        public PixelMap HeightMap
         {
             get { return _heightMap; }
             set
@@ -161,10 +163,67 @@ namespace Models
             }
         }
 
+        public bool IsLightMouse
+        {
+            get { return _isLightMouse; }
+            set
+            {
+                _isLightMouse = value;
+                RaisePropertyChanged("IsLightMouse");
+            }
+        }
+
+        public bool IsLightAnimation
+        {
+            get { return _isLightAnimation; }
+            set
+            {
+                _isLightAnimation = value;
+                RaisePropertyChanged("IsLightAnimation");
+            }
+        }
+
+        public int LightAnimRadius
+        {
+            get { return _lightAnimRadius; }
+            set
+            {
+                _lightAnimRadius = value;
+                RaisePropertyChanged("LightAnimRadius");
+            }
+        }
+
+        public int Width { get => width; set => width = value; }
+        public int Height { get => height; set => height = value; }
+
+        public double LambertRate
+        {
+            get { return _lambertRate; }
+            set
+            {
+                _lambertRate = value;
+                RaisePropertyChanged("LambertRate");
+            }
+        }
+
+        public double PhongRate
+        {
+            get { return _phongRate; }
+            set
+            {
+                _phongRate = value;
+                RaisePropertyChanged("PhongRate");
+            }
+        }
 
         public void RaiseEventListAdd()
         {
           RaisePropertyChanged("TriangleSettingsList");
+        }
+
+        public void RaiseLightPointChanged()
+        {
+            RaisePropertyChanged("LightPoint");
         }
     }
 }

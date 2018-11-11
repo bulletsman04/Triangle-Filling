@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using Models;
 using MvvmFoundation.Wpf;
+using PixelMapSharp;
 
 namespace ViewModels
 {
@@ -20,30 +21,27 @@ namespace ViewModels
             Settings = settings;
         }
 
-        RelayCommand<string> _setTriangleTextureCommand;
-        public ICommand SetTriangleTextureCommand
+        RelayCommand<string> _setTextureCommand;
+        public ICommand SetTextureCommand
         {
             get
             {
-                if (_setTriangleTextureCommand == null)
+                if (_setTextureCommand == null)
                 {
-                    _setTriangleTextureCommand = new RelayCommand<string>(this.SetTriangleTexture,
+                    _setTextureCommand = new RelayCommand<string>(this.SetTexture,
                         null);
                 }
-                return _setTriangleTextureCommand;
+                return _setTextureCommand;
             }
         }
 
-        public void SetTriangleTexture(string index)
+        public void SetTexture(string index)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-
-
+            
             // Set filter for file extension and default file extension 
             
-            dlg.Filter = "PNG Files (*.png)|*.png|JPEG Files (*.jpeg)|*.jpeg|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-            dlg.DefaultExt = ".png";
+            dlg.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*"; ;
 
             // Display OpenFileDialog by calling ShowDialog method 
             bool? result = dlg.ShowDialog();
@@ -54,7 +52,27 @@ namespace ViewModels
             {
                 // Open document 
                 string filename = dlg.FileName;
-                Settings.TriangleSettingsList[int.Parse(index)].PickedTriangleTexture = new Bitmap(filename);
+                int i = int.Parse(index);
+                switch (i)
+                {
+                    case 0:
+                        Settings.TriangleSettingsList[i].PickedTriangleTexture =
+                        PixelMap.SlowLoad(new Bitmap(filename));
+                        break;
+                    case 1:
+                        Settings.TriangleSettingsList[i].PickedTriangleTexture =
+                            PixelMap.SlowLoad(new Bitmap(filename));
+                        break;
+                    case 2:
+                        Settings.NormalMap =
+                            PixelMap.SlowLoad(new Bitmap(filename));
+                        break;
+                    case 3:
+                        Settings.HeightMap =
+                            PixelMap.SlowLoad(new Bitmap(filename));
+                        break;
+                }
+                
             }
         }
     }

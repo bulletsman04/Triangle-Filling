@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Media3D;
 using Models;
 using MvvmFoundation.Wpf;
+using Point = System.Windows.Point;
+using Point3D = Models.Point3D;
+
+//==using Point3D = Models.Point3D;
 
 namespace ViewModels
 {
@@ -16,6 +20,7 @@ namespace ViewModels
         private Settings _settings;
         private Point _mousePoint;
         private Triangle _movedTriangle;
+        public  Image image { get; set; }
         public WorkingArea WorkingArea
         {
             get => _workingArea;
@@ -49,12 +54,12 @@ namespace ViewModels
         }
         public void HandleMouseMove(Point mousePoint)
         {
-            _settings.LightPoint = new Point3D(mousePoint.X, -mousePoint.Y, 300);
+            
             if (MovedVertex != null)
             {
                 MovedVertex.X = (int)mousePoint.X;
                 MovedVertex.Y = (int) mousePoint.Y;
-                //WorkingArea.RepaintBitmap();
+                WorkingArea.RepaintBitmap();
 
             }
             else if (_movedTriangle != null)
@@ -62,9 +67,14 @@ namespace ViewModels
                 Vector2D vector = new Vector2D(_mousePoint,mousePoint);
                 WorkingArea.MoveTriangle(_movedTriangle,vector);
                 _mousePoint = mousePoint;
-                //WorkingArea.RepaintBitmap();
-            }
                 WorkingArea.RepaintBitmap();
+            }
+            else if(Settings.IsLightMouse == true)
+            {
+                _settings.LightPoint = new Point3D((int)mousePoint.X, (int)-mousePoint.Y, 300);
+                WorkingArea.RepaintBitmap();
+
+            }
 
         }
 

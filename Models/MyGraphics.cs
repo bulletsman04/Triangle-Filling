@@ -11,12 +11,12 @@ namespace Models
 {
     public class MyGraphics
     {
-        private PixelMap _pixelMap;
+        private DirectBitmap _directBitmap;
         private Settings _settings;
 
-        public MyGraphics(PixelMap pixelMap, Settings settings)
+        public MyGraphics(DirectBitmap directBitmap, Settings settings)
         {
-            _pixelMap = pixelMap;
+            _directBitmap = directBitmap;
             _settings = settings;
         }
         private class Node
@@ -100,12 +100,17 @@ namespace Models
                 AET = AET.OrderBy(node => node.X).ToList();
                 for (int i = 0; i < AET.Count - 1; i += 2)
                 {
-                    for (int j = (int)Math.Round(AET[i].X); j < (int)Math.Round(AET[i + 1].X); j++)
+                    Parallel.For((int) Math.Round(AET[i].X), (int) Math.Round(AET[i + 1].X), j =>
                     {
-
-                        _pixelMap[j, y - 1] = new Pixel(CalculateColor(j, y - 1, triangle));
-                        //_bitmap.SetPixel(j, y - 1, triangle.TriangleSettings.PickedTriangleTexture.GetPixel(j% triangle.TriangleSettings.PickedTriangleTexture.Width,(y-1)% triangle.TriangleSettings.PickedTriangleTexture.Height));
-                    }
+                        if(j < _directBitmap.Width && j >= 0 && (y-1) < _directBitmap.Height && (y-1) >=0 )
+                        _directBitmap.SetPixel(j, y - 1,CalculateColor(j, y - 1, triangle));
+                    });
+                    //for (int j = (int)Math.Round(AET[i].X); j < (int)Math.Round(AET[i + 1].X); j++)
+                    //{
+                        
+                    //    _pixelMap[j, y - 1] = new Pixel(CalculateColor(j, y - 1, triangle));
+                    //    //_bitmap.SetPixel(j, y - 1, triangle.TriangleSettings.PickedTriangleTexture.GetPixel(j% triangle.TriangleSettings.PickedTriangleTexture.Width,(y-1)% triangle.TriangleSettings.PickedTriangleTexture.Height));
+                    //}
                 }
 
                 for (int i = 0; i < AET.Count; i++)
@@ -117,8 +122,17 @@ namespace Models
 
         public System.Drawing.Color CalculateColor(int x, int y, Triangle triangle)
         {
-            Vector3 L = new Vector3((float)(_settings.LightPoint.X - x), (float)(_settings.LightPoint.Y + y), (float)_settings.LightPoint.Z);
-            //Vector3 L = new Vector3(0,-10,1);
+            Vector3 L;
+            if (_settings.IsLightMouse || _settings.IsLightAnimation)
+            {
+               L = new Vector3((float) (_settings.LightPoint.X - x), (float) (_settings.LightPoint.Y + y),
+                    (float) _settings.LightPoint.Z);
+            }
+            else 
+            {
+                L = new Vector3(0,0,1);
+            }
+
             L = Vector3.Normalize(L);
             Vector3 N;
 
@@ -132,9 +146,9 @@ namespace Models
             else
             {
                 // ToDo: tutaj trzeba rozpatrzeć że modulo wychodzi ujemne
-                IO = ColorToVector(triangle.TriangleSettings.PickedTriangleTexture.GetPixel(
+                IO = ColorToVector(triangle.TriangleSettings.PickedTriangleTexture[
                     (x - triangle.MoveVector.Coordinates.X) % triangle.TriangleSettings.PickedTriangleTexture.Width,
-                    (y - triangle.MoveVector.Coordinates.Y) % triangle.TriangleSettings.PickedTriangleTexture.Height));
+                    (y - triangle.MoveVector.Coordinates.Y) % triangle.TriangleSettings.PickedTriangleTexture.Height].Color);
             }
 
             if (_settings.IsNormalConst)
@@ -143,7 +157,7 @@ namespace Models
             }
             else
             {
-                N = ColorToNormalVector(_settings.NormalMap.GetPixel(x % _settings.NormalMap.Width, y % _settings.NormalMap.Height));
+                N = ColorToNormalVector(_settings.NormalMap[x % _settings.NormalMap.Width, y % _settings.NormalMap.Height].Color);
             }
 
             N = Vector3.Normalize(N);
@@ -153,11 +167,11 @@ namespace Models
 
                 Vector3 TV = new Vector3(1, 0, -N.X / N.Z);
                 Vector3 BV = new Vector3(0, 1, -N.Y / N.Z);
-                float dX = _settings.HeightMap.GetPixel((x + 1) % _settings.HeightMap.Width, y % _settings.HeightMap.Height).R - _settings.HeightMap.GetPixel(x % _settings.HeightMap.Width, y % _settings.HeightMap.Height).R;
-                float dY = _settings.HeightMap.GetPixel(x % _settings.HeightMap.Width, (y + 1) % _settings.HeightMap.Height).R - _settings.HeightMap.GetPixel(x % _settings.HeightMap.Width, y % _settings.HeightMap.Height).R;
+                float dX = _settings.HeightMap[(x + 1) % _settings.HeightMap.Width, y % _settings.HeightMap.Height].Color.R - _settings.HeightMap[x % _settings.HeightMap.Width, y % _settings.HeightMap.Height].Color.R;
+                float dY = _settings.HeightMap[x % _settings.HeightMap.Width, (y + 1) % _settings.HeightMap.Height].Color.R - _settings.HeightMap[x % _settings.HeightMap.Width, y % _settings.HeightMap.Height].Color.R;
                 Vector3 D = TV * dX + BV * dY;
 
-                N += D / (float)30;
+                N += D / (float)180;
                 N = Vector3.Normalize(N);
             }
 
@@ -166,16 +180,16 @@ namespace Models
             if (_settings.IsPhong)
             {
                 Vector3 V = new Vector3(0, 0, 1);
-                Vector3 RV = Vector3.Normalize(2 * N - L);
+                Vector3 RV = Vector3.Normalize((float)2 * N - L);
 
                 cosVR = Math.Pow(V.X * RV.X + V.Y * RV.Y + V.Z * RV.Z, _settings.MPhong);
                 if (cosVR < 0) cosVR = 0;
             }
 
             double cosLN = N.X * L.X + N.Y * L.Y + N.Z * L.Z;
-            double R = IO.X * IL.X * cosLN + 0.5 * IL.X * cosVR;
-            double G = IO.Y * IL.Y * cosLN + 0.5 * IL.Y * cosVR;
-            double B = IO.Z * IL.Z * cosLN + 0.5 * IL.Z * cosVR;
+            double R = _settings.LambertRate * IO.X * IL.X * cosLN +  _settings.PhongRate * IL.X * cosVR;
+            double G = _settings.LambertRate*IO.Y * IL.Y * cosLN + _settings.PhongRate * IL.Y * cosVR;
+            double B = _settings.LambertRate*IO.Z * IL.Z * cosLN + _settings.PhongRate * IL.Z * cosVR;
 
             if (R < 0) R = 0;
             if (R > 1) R = 1;
@@ -184,7 +198,7 @@ namespace Models
             if (B < 0) B = 0;
             if (B > 1) B = 1;
 
-            return Color.FromArgb((int)(255 * R), (int)(255 * G), (int)(255 * B));
+            return Color.FromArgb((int)Math.Round(255 * R), (int)Math.Round(255 * G), (int)Math.Round(255 * B));
 
         }
 

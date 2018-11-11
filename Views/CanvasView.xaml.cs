@@ -54,6 +54,7 @@ namespace Views
         private void Area_OnLoaded(object sender, RoutedEventArgs e)
         {
             _canvasViewModel.WorkingArea = new WorkingArea((int)Area.DesiredSize.Width, (int)Area.DesiredSize.Height,_canvasViewModel.Settings);
+            _canvasViewModel.image = Area;
         }
 
         private void Area_OnMouseUp(object sender, MouseButtonEventArgs e)

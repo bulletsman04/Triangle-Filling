@@ -4,7 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models.Properties;
 using MvvmFoundation.Wpf;
+using PixelMapSharp;
 
 namespace Models
 {
@@ -12,7 +14,7 @@ namespace Models
     {
         private bool isColor = false;
         private Color _pickedColor = Color.FromArgb(1,1,1);
-        private Bitmap _pickedTriangleTexture = new Bitmap(@"C:\Users\mikew\source\repos\GKLab2\Models\Textures\normal_map.jpg");
+        private PixelMap _pickedTriangleTexture = PixelMap.SlowLoad(new Bitmap(Resources.normal_map));
         public bool IsColor
         {
             get { return isColor; }
@@ -33,7 +35,7 @@ namespace Models
             }
         }
 
-        public Bitmap PickedTriangleTexture
+        public PixelMap PickedTriangleTexture
         {
             get => _pickedTriangleTexture;
             set

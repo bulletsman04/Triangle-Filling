@@ -35,6 +35,12 @@ namespace Views
             _menuViewModel = base.DataContext as MenuViewModel;
         }
 
+        private void MenuView_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                Application.Current.MainWindow.DragMove();
+        }
+
         private MenuViewModel _menuViewModel;
     }
 }

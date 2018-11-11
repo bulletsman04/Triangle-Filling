@@ -35,9 +35,43 @@ namespace ViewModels
         {
             Application.Current.MainWindow.Close();
         }
+        RelayCommand _minimizeCommand;
+        public ICommand MinimizeCommand
+        {
+            get
+            {
+                if (_minimizeCommand == null)
+                {
+                    // Add animation (now minimizing is too sudden)
+                    _minimizeCommand = new RelayCommand(() => Application.Current.MainWindow.WindowState = WindowState.Minimized,
+                        null);
+                }
+                return _minimizeCommand;
+            }
+        }
 
-     
-        
-        
+        RelayCommand _maximizeCommand;
+        public ICommand MaximizeCommand
+        {
+            get
+            {
+                if (_maximizeCommand == null)
+                {
+                    // Add animation (now minimizing is too sudden)
+                    _maximizeCommand = new RelayCommand(() =>
+                        {
+                            Application.Current.MainWindow.WindowState =
+                                Application.Current.MainWindow.WindowState == WindowState.Maximized
+                                    ? WindowState.Normal
+                                    : WindowState.Maximized;
+                        },
+                        null);
+                }
+                return _maximizeCommand;
+            }
+        }
+
+
+
     }
 }

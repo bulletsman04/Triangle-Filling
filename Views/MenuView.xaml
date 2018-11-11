@@ -22,11 +22,11 @@
         </Style>
 
         <Style TargetType="StackPanel" x:Key="TopBarDrag">
-            <!--<Style.Triggers>
+            <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Cursor" Value="Hand"/>
                 </Trigger>
-            </Style.Triggers>-->
+            </Style.Triggers>
             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
             <Setter Property="Background" Value="Transparent"></Setter>
         </Style>
@@ -39,14 +39,15 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition  Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="25"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Menu  Background="Transparent"  Grid.Column="0" Name="MainMenu">
             <MenuItem Style="{StaticResource MainMenuItem}"  Header="About"></MenuItem>
         </Menu>
-        <StackPanel  Style="{StaticResource TopBarDrag}"  Grid.Column="1"></StackPanel>
+        <StackPanel  Style="{StaticResource TopBarDrag}" PreviewMouseDown="MenuView_OnMouseDown"  Grid.Column="1"></StackPanel>
         <WrapPanel VerticalAlignment="Stretch" Grid.Column="2">
-            <!-- ToDO: DataTemplate (with Binding to itself to get image?) - poprosić Anię o o jej projekty -->
+            <Button Command="{Binding MinimizeCommand}" Content="Icons/minimalize.png" ContentTemplate="{StaticResource IconButtonTemplate}" Style="{StaticResource IconButton}">
+            </Button>
             <Button Command="{Binding CloseCommand}" Content="Icons/close_black_2048x2048.png" ContentTemplate="{StaticResource IconButtonTemplate}" Style="{StaticResource IconButton}">
             </Button>
         </WrapPanel>
