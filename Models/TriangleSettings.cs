@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Models.Properties;
@@ -13,8 +14,8 @@ namespace Models
     public class TriangleSettings:ObservableObject
     {
         private bool isColor = false;
-        private Color _pickedColor = Color.FromArgb(1,1,1);
-        private PixelMap _pickedTriangleTexture = PixelMap.SlowLoad(new Bitmap(Resources.normal_map));
+        private Vector3 _pickedColor = new Vector3(0,0,0);
+        private Vector3[,] _pickedTriangleTexture = LibrariesConverters.BitmapToVectors(Resources.normal_map);
         public bool IsColor
         {
             get { return isColor; }
@@ -25,22 +26,24 @@ namespace Models
             }
         }
 
-        public Color PickedColor
+        public Vector3 PickedColor
         {
             get => _pickedColor;
             set
             {
                 _pickedColor = value;
+                IsColor = true;
                 RaisePropertyChanged("PickedColor");
             }
         }
 
-        public PixelMap PickedTriangleTexture
+        public Vector3[,] PickedTriangleTexture
         {
             get => _pickedTriangleTexture;
             set
             {
                 _pickedTriangleTexture = value;
+                IsColor = false;
                 RaisePropertyChanged("PickedTriangleTexture");
             }
         }

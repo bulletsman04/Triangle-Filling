@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Drawing;
+using System.Numerics;
+using Models;
 
 namespace Views.Converters
 {
@@ -15,8 +17,8 @@ namespace Views.Converters
             object parameter, CultureInfo culture)
         {
 
-            Color color = (Color)value;
-            return System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
+            Vector3 color = (Vector3)value;
+            return System.Windows.Media.Color.FromRgb((byte)(color.X*255), (byte)(color.Y * 255), (byte)(color.Z * 255));
            
         }
 
@@ -24,7 +26,7 @@ namespace Views.Converters
             object parameter, CultureInfo culture)
         {
             System.Windows.Media.Color color = (System.Windows.Media.Color)value;
-            return System.Drawing.Color.FromArgb(color.R, color.G, color.B);
+            return LibrariesConverters.ColorToVector(Color.FromArgb(color.R,color.G,color.B));
         }
     }
 }

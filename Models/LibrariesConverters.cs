@@ -48,5 +48,19 @@ namespace Models
         {
             return new Vector3(((float)color.R * 2 / 255 - 1), ((float)color.G * 2 / 255 - 1), (float)color.B / 255);
         }
+
+        public static Vector3[,] BitmapToVectors(Bitmap bitmap)
+        {
+            Vector3[,] textureVectors = new Vector3[bitmap.Width,bitmap.Height];
+            for (int i = 0; i < bitmap.Width; i++)
+            {
+                for (int j = 0; j < bitmap.Height; j++)
+                {
+                    textureVectors[i, j] = LibrariesConverters.ColorToVector(bitmap.GetPixel(i, j));
+                }
+            }
+
+            return textureVectors;
+        }
     }
 }

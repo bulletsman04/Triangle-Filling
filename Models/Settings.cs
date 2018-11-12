@@ -16,7 +16,7 @@ namespace Models
     public class Settings: ObservableObject
     {
         private int _lightAnimRadius = 30;
-        private Color _lightColor = Color.FromArgb(255,255,255);
+        private Vector3 _lightColor = new Vector3(1,1,1);
         private Point3D _lightPoint = new Point3D(300,-200,100);
         private PixelMap _normalMap;
         private PixelMap _heightMap;
@@ -29,8 +29,9 @@ namespace Models
         private bool _isNormalConst = false;
         private bool _isHeightConst = false;
         private bool _isPhong = false;
-        private  double _lambertRate = 1;
-        private double _phongRate = 0.2;
+        private  float _lambertRate = 1f;
+        private float _phongRate = 0.2f;
+        private float _heightRate = 0.02f;
 
         private int width;
         private int height;
@@ -40,14 +41,13 @@ namespace Models
         public Settings()
         {
           
-            _normalMap = PixelMap.SlowLoad(new Bitmap(Resources.normal_map));
-            _heightMap = PixelMap.SlowLoad(new Bitmap(Resources.heightmap));
+            _normalMap = PixelMap.SlowLoad(Resources.normal_map);
+            _heightMap = PixelMap.SlowLoad(Resources.heightmap);
            
             TriangleSettingsList = new ObservableCollection<TriangleSettings>();
             
         }
-
-
+        
         public void CalculateNMap()
         {
             Vector3 N;
@@ -55,14 +55,7 @@ namespace Models
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    if (IsNormalConst)
-                    {
-                        N = NormalVector;
-                    }
-                    else
-                    {
-                        N = LibrariesConverters.ColorToNormalVector(NormalMap[i % NormalMap.Width, j % NormalMap.Height].Color);
-                    }
+                    N = IsNormalConst ? NormalVector : LibrariesConverters.ColorToNormalVector(NormalMap[i % NormalMap.Width, j % NormalMap.Height].Color);
 
                     N = Vector3.Normalize(N);
 
@@ -75,10 +68,11 @@ namespace Models
                         float dY = HeightMap[i % HeightMap.Width, (j + 1) % HeightMap.Height].Color.R - HeightMap[i % HeightMap.Width, j % HeightMap.Height].Color.R;
                         Vector3 D = TV * dX + BV * dY;
 
-                        N += D / (float)180;
+                        N += D * HeightRate;
                         N = Vector3.Normalize(N);
                     }
-
+                    if(float.IsNaN(N.X) || float.IsNaN(N.Y) || float.IsNaN(N.Z) )
+                        N = new Vector3(0,0,1);
                     NMap[i, j] = N;
                 }
             }
@@ -150,7 +144,7 @@ namespace Models
 
      
 
-        public Color LightColor
+        public Vector3 LightColor
         {
             get { return _lightColor; }
             set
@@ -177,6 +171,7 @@ namespace Models
             set
             {
                 _normalMap = value;
+                IsNormalConst = false;
                 RaisePropertyChanged("NormalMap");
             }
         }
@@ -187,6 +182,7 @@ namespace Models
             set
             {
                 _heightMap = value;
+                IsHeightConst = false;
                 RaisePropertyChanged("HeightMap");
             }
         }
@@ -234,7 +230,7 @@ namespace Models
         public int Width { get => width; set => width = value; }
         public int Height { get => height; set => height = value; }
 
-        public double LambertRate
+        public float LambertRate
         {
             get { return _lambertRate; }
             set
@@ -244,13 +240,23 @@ namespace Models
             }
         }
 
-        public double PhongRate
+        public float PhongRate
         {
             get { return _phongRate; }
             set
             {
                 _phongRate = value;
                 RaisePropertyChanged("PhongRate");
+            }
+        }
+
+        public float HeightRate
+        {
+            get { return _heightRate; }
+            set
+            {
+                _heightRate = value;
+                RaisePropertyChanged("HeightRate");
             }
         }
 

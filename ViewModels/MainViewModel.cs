@@ -24,7 +24,7 @@ namespace ViewModels
         public PropertyObserver<TriangleSettings> TriangleSettingObserver { get; set; }
         public PropertyObserver<TriangleSettings> TriangleSettingObserver2 { get; set; }
         private static System.Timers.Timer _timer;
-        private int _xInc=1;
+        private int _xInc=3;
         private bool _mutex = false;
         
 
@@ -40,38 +40,36 @@ namespace ViewModels
         public void RegisterPropertiesChanged()
         {
             SettingsObserver = new PropertyObserver<Settings>(Settings)
-                .RegisterHandler(n => n.TriangleSettingsList,ListChangedHandler)
+                .RegisterHandler(n => n.TriangleSettingsList, ListChangedHandler)
                 .RegisterHandler(n => n.LightPoint, PropertyChangedHandler)
-                    .RegisterHandler(n => n.LightColor, PropertyChangedHandler)
+                .RegisterHandler(n => n.LightColor, PropertyChangedHandler)
                 .RegisterHandler(n => n.IsLightConst, PropertyChangedHandler)
                 .RegisterHandler(n => n.IsLightMouse, PropertyChangedHandler)
                 .RegisterHandler(n => n.IsLightAnimation, PropertyChangedHandler)
                 .RegisterHandler(n => n.IsLightAnimation, StartLightAnimation)
-                    .RegisterHandler(n => n.HeightMap, NMapChangedHandler)
-                    .RegisterHandler(n => n.NormalMap, NMapChangedHandler)
-                    .RegisterHandler(n => n.IsNormalConst, NMapChangedHandler)
-                    .RegisterHandler(n => n.IsHeightConst, NMapChangedHandler)
-                    .RegisterHandler(n => n.IsPhong, PropertyChangedHandler)
-                    .RegisterHandler(n => n.LambertRate, PropertyChangedHandler)
-                    .RegisterHandler(n => n.PhongRate, PropertyChangedHandler)
-                    .RegisterHandler(n => n.MPhong, PropertyChangedHandler)
-                ;
-
-
-
+                .RegisterHandler(n => n.HeightMap, NMapChangedHandler)
+                .RegisterHandler(n => n.NormalMap, NMapChangedHandler)
+                .RegisterHandler(n => n.IsNormalConst, NMapChangedHandler)
+                .RegisterHandler(n => n.IsHeightConst, NMapChangedHandler)
+                .RegisterHandler(n => n.IsPhong, PropertyChangedHandler)
+                .RegisterHandler(n => n.LambertRate, PropertyChangedHandler)
+                .RegisterHandler(n => n.PhongRate, PropertyChangedHandler)
+                .RegisterHandler(n => n.MPhong, PropertyChangedHandler)
+                .RegisterHandler(n => n.HeightRate, NMapChangedHandler);
         }
 
         private void ListChangedHandler(Settings s)
         {
-            
-            TriangleSettingObserver = new PropertyObserver<TriangleSettings>(s.TriangleSettingsList[0]).RegisterHandler(n => n.PickedColor, PropertyChangedHandler)
-                .RegisterHandler(n => n.PickedTriangleTexture,PropertyChangedHandler)
-                .RegisterHandler(n => n.IsColor,PropertyChangedHandler)
-                ;
-            TriangleSettingObserver2 = new PropertyObserver<TriangleSettings>(s.TriangleSettingsList[1]).RegisterHandler(n => n.PickedColor, PropertyChangedHandler)
+
+            TriangleSettingObserver = new PropertyObserver<TriangleSettings>(s.TriangleSettingsList[0])
+                .RegisterHandler(n => n.PickedColor, PropertyChangedHandler)
+                .RegisterHandler(n => n.PickedTriangleTexture, PropertyChangedHandler)
+                .RegisterHandler(n => n.IsColor, PropertyChangedHandler);
+
+            TriangleSettingObserver2 = new PropertyObserver<TriangleSettings>(s.TriangleSettingsList[1])
+                    .RegisterHandler(n => n.PickedColor, PropertyChangedHandler)
                     .RegisterHandler(n => n.PickedTriangleTexture, PropertyChangedHandler)
-                    .RegisterHandler(n => n.IsColor, PropertyChangedHandler)
-                ;
+                    .RegisterHandler(n => n.IsColor, PropertyChangedHandler);
         }
 
         private void PropertyChangedHandler(TriangleSettings ts)
@@ -111,9 +109,7 @@ namespace ViewModels
 
         private  void SetTimer()
         {
-            // Create a timer with a two second interval.
             _timer = new System.Timers.Timer(10);
-            // Hook up the Elapsed event for the timer. 
             _timer.Elapsed += OnTimedEvent;
             _timer.AutoReset = true;
             _timer.Enabled = true;

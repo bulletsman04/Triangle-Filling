@@ -58,11 +58,11 @@ namespace ViewModels
                 {
                     case 0:
                         Settings.TriangleSettingsList[i].PickedTriangleTexture =
-                        PixelMap.SlowLoad(new Bitmap(filename));
+                        LibrariesConverters.BitmapToVectors(new Bitmap(filename));
                         break;
                     case 1:
                         Settings.TriangleSettingsList[i].PickedTriangleTexture =
-                            PixelMap.SlowLoad(new Bitmap(filename));
+                            LibrariesConverters.BitmapToVectors(new Bitmap(filename));
                         break;
                     case 2:
                         Settings.NormalMap =

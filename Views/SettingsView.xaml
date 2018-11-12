@@ -13,6 +13,8 @@
         <converters:BoolConverter x:Key="BoolConverter" />
         <converters:ColorConverter x:Key="ColorConverter" />
         <converters:TextureConverter x:Key="TextureConverter" />
+        <converters:TriangleTextureConverter x:Key="TriangleTextureConverter" />
+
         <converters:TextToIntConverter x:Key="TextToIntConverter" />
       
         <Style TargetType="Border" x:Key="BorderStyle">
@@ -77,7 +79,7 @@
             </WrapPanel>
             <WrapPanel Style="{StaticResource WrapStyle}">
                 <RadioButton IsChecked="{Binding Settings.TriangleSettingsList[0].IsColor,Converter={StaticResource BoolConverter}}" GroupName="Traingle1">Tekstura</RadioButton>
-                <Image Source="{Binding Settings.TriangleSettingsList[0].PickedTriangleTexture, Mode=OneWay, Converter={StaticResource TextureConverter}}"></Image>
+                <Image Source="{Binding Settings.TriangleSettingsList[0].PickedTriangleTexture, Mode=OneWay, Converter={StaticResource TriangleTextureConverter}}"></Image>
                     <Button Command="{Binding SetTextureCommand}" CommandParameter="0">Zmień</Button>
             </WrapPanel>
         </StackPanel>
@@ -92,7 +94,7 @@
                 </WrapPanel>
                 <WrapPanel Style="{StaticResource WrapStyle}">
                     <RadioButton IsChecked="{Binding Settings.TriangleSettingsList[1].IsColor,Converter={StaticResource BoolConverter}}" GroupName="Traingle2">Tekstura</RadioButton>
-                    <Image Source="{Binding Settings.TriangleSettingsList[1].PickedTriangleTexture, Mode=OneWay, Converter={StaticResource TextureConverter}}"></Image>
+                    <Image Source="{Binding Settings.TriangleSettingsList[1].PickedTriangleTexture, Mode=OneWay, Converter={StaticResource TriangleTextureConverter}}"></Image>
                     <Button Command="{Binding SetTextureCommand}" CommandParameter="1">Zmień</Button>
                 </WrapPanel>
             </StackPanel>
@@ -116,7 +118,7 @@
                     <RadioButton IsChecked="{Binding Settings.IsLightMouse}" GroupName="Ligth">Podążający za myszką</RadioButton>
                 </WrapPanel>
                 <WrapPanel Style="{StaticResource WrapStyle}">
-                    <RadioButton IsChecked="{Binding Settings.IsLightAnimation}" GroupName="Ligth">Animowane po sferze, R = </RadioButton>
+                    <RadioButton IsChecked="{Binding Settings.IsLightAnimation}" GroupName="Ligth">Animowane W - E, Z = </RadioButton>
                     <TextBox Width="30" IsEnabled="{Binding Settings.IsLightAnimation,Converter={StaticResource BoolConverter}}" Text="{Binding Settings.LightAnimRadius, Converter={StaticResource TextToIntConverter}}"></TextBox>
                 </WrapPanel>
             </StackPanel>
@@ -146,8 +148,14 @@
                     <Image Source="{Binding Settings.HeightMap, Mode=OneWay, Converter={StaticResource TextureConverter}}"></Image>
                     <Button Command="{Binding SetTextureCommand}" CommandParameter="3">Zmień</Button>
                 </WrapPanel>
+                <WrapPanel Style="{StaticResource WrapStyle}">
+                    <TextBlock Margin="3 0 0 0" > Współczynnik: </TextBlock>
+                    <TextBlock Margin="10 0 0 0" FontSize="10"> 0</TextBlock>
+                    <Slider IsEnabled="{Binding Settings.IsHeightConst,Converter={StaticResource BoolConverter}}" Minimum="0" Maximum="0.1" TickFrequency="0.03" Value="{Binding Settings.HeightRate}" Width="70"></Slider>
+                    <TextBlock Margin="5 0 0 0 " FontSize="10" > 0.1</TextBlock>
+                </WrapPanel>
 
-            </StackPanel>
+                    </StackPanel>
         </Border>
 
         <Border Style="{StaticResource BorderStyle}" Grid.Row="6">
@@ -169,7 +177,7 @@
 
             </StackPanel>
         </Border>
-        <Border Style="{StaticResource BorderStyle}" Grid.Row="7">
+        <Border Style="{StaticResource BorderStyle}" BorderThickness="0" Grid.Row="7">
             <StackPanel Style="{StaticResource StackStyle}" >
                         <TextBlock Style="{StaticResource TextStyle}">Wpływ czynników</TextBlock>
                 <WrapPanel Style="{StaticResource WrapStyle}">
