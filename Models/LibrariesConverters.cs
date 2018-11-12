@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -36,6 +37,16 @@ namespace Models
 
                 return bitmapimage;
             }
+        }
+
+        public static Vector3 ColorToVector(Color color)
+        {
+            return new Vector3((float)color.R / 255, (float)color.G / 255, (float)color.B / 255);
+        }
+
+        public static Vector3 ColorToNormalVector(Color color)
+        {
+            return new Vector3(((float)color.R * 2 / 255 - 1), ((float)color.G * 2 / 255 - 1), (float)color.B / 255);
         }
     }
 }

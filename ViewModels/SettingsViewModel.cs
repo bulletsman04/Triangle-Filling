@@ -16,6 +16,7 @@ namespace ViewModels
     {
         public Settings Settings { get; set; }
 
+
         public SettingsViewModel(Settings settings)
         {
             Settings = settings;

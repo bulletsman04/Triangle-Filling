@@ -105,12 +105,7 @@ namespace Models
                         if(j < _directBitmap.Width && j >= 0 && (y-1) < _directBitmap.Height && (y-1) >=0 )
                         _directBitmap.SetPixel(j, y - 1,CalculateColor(j, y - 1, triangle));
                     });
-                    //for (int j = (int)Math.Round(AET[i].X); j < (int)Math.Round(AET[i + 1].X); j++)
-                    //{
-                        
-                    //    _pixelMap[j, y - 1] = new Pixel(CalculateColor(j, y - 1, triangle));
-                    //    //_bitmap.SetPixel(j, y - 1, triangle.TriangleSettings.PickedTriangleTexture.GetPixel(j% triangle.TriangleSettings.PickedTriangleTexture.Width,(y-1)% triangle.TriangleSettings.PickedTriangleTexture.Height));
-                    //}
+                 
                 }
 
                 for (int i = 0; i < AET.Count; i++)
@@ -134,46 +129,24 @@ namespace Models
             }
 
             L = Vector3.Normalize(L);
-            Vector3 N;
+            
 
-            Vector3 IL = ColorToVector(_settings.LightColor);
+            Vector3 IL = LibrariesConverters.ColorToVector(_settings.LightColor);
 
             Vector3 IO;
             if (triangle.TriangleSettings.IsColor)
             {
-                IO = ColorToVector(triangle.TriangleSettings.PickedColor);
+                IO = LibrariesConverters.ColorToVector(triangle.TriangleSettings.PickedColor);
             }
             else
             {
                 // ToDo: tutaj trzeba rozpatrzeć że modulo wychodzi ujemne
-                IO = ColorToVector(triangle.TriangleSettings.PickedTriangleTexture[
+                IO = LibrariesConverters.ColorToVector(triangle.TriangleSettings.PickedTriangleTexture[
                     (x - triangle.MoveVector.Coordinates.X) % triangle.TriangleSettings.PickedTriangleTexture.Width,
                     (y - triangle.MoveVector.Coordinates.Y) % triangle.TriangleSettings.PickedTriangleTexture.Height].Color);
             }
 
-            if (_settings.IsNormalConst)
-            {
-                N = _settings.NormalVector;
-            }
-            else
-            {
-                N = ColorToNormalVector(_settings.NormalMap[x % _settings.NormalMap.Width, y % _settings.NormalMap.Height].Color);
-            }
-
-            N = Vector3.Normalize(N);
-
-            if (!_settings.IsHeightConst)
-            {
-
-                Vector3 TV = new Vector3(1, 0, -N.X / N.Z);
-                Vector3 BV = new Vector3(0, 1, -N.Y / N.Z);
-                float dX = _settings.HeightMap[(x + 1) % _settings.HeightMap.Width, y % _settings.HeightMap.Height].Color.R - _settings.HeightMap[x % _settings.HeightMap.Width, y % _settings.HeightMap.Height].Color.R;
-                float dY = _settings.HeightMap[x % _settings.HeightMap.Width, (y + 1) % _settings.HeightMap.Height].Color.R - _settings.HeightMap[x % _settings.HeightMap.Width, y % _settings.HeightMap.Height].Color.R;
-                Vector3 D = TV * dX + BV * dY;
-
-                N += D / (float)180;
-                N = Vector3.Normalize(N);
-            }
+            Vector3 N = _settings.NMap[x, y];
 
             double cosVR = 0;
 
@@ -197,20 +170,12 @@ namespace Models
             if (G > 1) G = 1;
             if (B < 0) B = 0;
             if (B > 1) B = 1;
-
+            // ToDo: Przepełnienie inta przy wczytaniu nie normla mapy jako normal mapy
             return Color.FromArgb((int)Math.Round(255 * R), (int)Math.Round(255 * G), (int)Math.Round(255 * B));
 
         }
 
-        public static Vector3 ColorToVector(Color color)
-        {
-            return new Vector3((float)color.R / 255, (float)color.G / 255, (float)color.B / 255);
-        }
-
-        public static Vector3 ColorToNormalVector(Color color)
-        {
-            return new Vector3(((float)color.R * 2 / 255 - 1), ((float)color.G * 2 / 255 - 1), (float)color.B / 255);
-        }
+      
 
     }
 }

@@ -34,16 +34,54 @@ namespace Models
 
         private int width;
         private int height;
+        public Vector3[,] NMap { get; set; } 
 
 
         public Settings()
         {
           
-               _normalMap = PixelMap.SlowLoad(new Bitmap(Resources.normal_map));
-                _heightMap = PixelMap.SlowLoad(new Bitmap(Resources.heightmap));
+            _normalMap = PixelMap.SlowLoad(new Bitmap(Resources.normal_map));
+            _heightMap = PixelMap.SlowLoad(new Bitmap(Resources.heightmap));
            
             TriangleSettingsList = new ObservableCollection<TriangleSettings>();
             
+        }
+
+
+        public void CalculateNMap()
+        {
+            Vector3 N;
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    if (IsNormalConst)
+                    {
+                        N = NormalVector;
+                    }
+                    else
+                    {
+                        N = LibrariesConverters.ColorToNormalVector(NormalMap[i % NormalMap.Width, j % NormalMap.Height].Color);
+                    }
+
+                    N = Vector3.Normalize(N);
+
+                    if (!IsHeightConst)
+                    {
+
+                        Vector3 TV = new Vector3(1, 0, -N.X / N.Z);
+                        Vector3 BV = new Vector3(0, 1, -N.Y / N.Z);
+                        float dX = HeightMap[(i + 1) % HeightMap.Width, j % HeightMap.Height].Color.R - HeightMap[i % HeightMap.Width, j % HeightMap.Height].Color.R;
+                        float dY = HeightMap[i % HeightMap.Width, (j + 1) % HeightMap.Height].Color.R - HeightMap[i % HeightMap.Width, j % HeightMap.Height].Color.R;
+                        Vector3 D = TV * dX + BV * dY;
+
+                        N += D / (float)180;
+                        N = Vector3.Normalize(N);
+                    }
+
+                    NMap[i, j] = N;
+                }
+            }
         }
 
         public bool IsLightConst

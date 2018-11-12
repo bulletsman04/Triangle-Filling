@@ -14,8 +14,7 @@
         <converters:ColorConverter x:Key="ColorConverter" />
         <converters:TextureConverter x:Key="TextureConverter" />
         <converters:TextToIntConverter x:Key="TextToIntConverter" />
-
-
+      
         <Style TargetType="Border" x:Key="BorderStyle">
             <Setter Property="BorderThickness" Value="0 0 0 1"></Setter>
             <Setter Property="BorderBrush" Value="Black"></Setter>
@@ -103,7 +102,7 @@
             <StackPanel Style="{StaticResource StackStyle}" >
                 <TextBlock Style="{StaticResource TextStyle}">Kolor źródła światła</TextBlock>
                 <WrapPanel Style="{StaticResource WrapStyle}">
-                    <xctk:ColorPicker x:Name="ColorPicker3"  SelectedColor="{Binding Settings.LightColor,Converter={StaticResource ColorConverter}, Mode=TwoWay}"  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                    <xctk:ColorPicker Margin="0" x:Name="ColorPicker3"  SelectedColor="{Binding Settings.LightColor,Converter={StaticResource ColorConverter}, Mode=TwoWay}"  VerticalAlignment="Center" HorizontalAlignment="Stretch" />
                 </WrapPanel>
             </StackPanel>
         </Border>
@@ -165,7 +164,7 @@
                      <TextBlock Margin="3 0 0 0" > m = </TextBlock>
                     <TextBlock Margin="10 0 0 0" FontSize="10"> 10</TextBlock>
                     <Slider Minimum="10" Maximum="100" TickFrequency="1" Value="{Binding Settings.MPhong}" Width="80"></Slider>
-                    <TextBlock FontSize="10" > 100</TextBlock>
+                    <TextBlock  FontSize="10" > 100</TextBlock>
                 </WrapPanel>
 
             </StackPanel>
@@ -177,13 +176,13 @@
                     <TextBlock Margin="3 0 0 0" > Model rozproszony: </TextBlock>
                     <TextBlock Margin="10 0 0 0" FontSize="10"> 0</TextBlock>
                     <Slider Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding Settings.LambertRate}" Width="80"></Slider>
-                    <TextBlock FontSize="10" > 1</TextBlock>
+                    <TextBlock Margin="5 0 0 0 " FontSize="10" > 1</TextBlock>
                 </WrapPanel>
                 <WrapPanel Style="{StaticResource WrapStyle}">
                     <TextBlock Margin="3 0 0 0" > Model zwierciadlany:</TextBlock>
                     <TextBlock Margin="10 0 0 0" FontSize="10"> 0</TextBlock>
                     <Slider Minimum="0" Maximum="1" TickFrequency="0.01" Value="{Binding Settings.PhongRate}" Width="80"></Slider>
-                    <TextBlock FontSize="10" > 1</TextBlock>
+                    <TextBlock Margin="5 0 0 0 " FontSize="10" > 1</TextBlock>
                 </WrapPanel>
 
                     </StackPanel>

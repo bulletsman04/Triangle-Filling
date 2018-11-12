@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Numerics;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -42,6 +43,8 @@ namespace Models
             Settings = settings;
             Settings.Width = width;
             Settings.Height = height;
+            Settings.NMap = new Vector3[width,height];
+            Settings.CalculateNMap();
             InitializeTriangles();
             RepaintBitmap();
         }
@@ -117,8 +120,8 @@ namespace Models
         {
 
 
-            Pen pen = new Pen(Color.Orange, 2);
-            Brush brush = new SolidBrush(Color.Blue);
+            Pen pen = new Pen(Color.LightGray, 2);
+            Brush brush = new SolidBrush(Color.FromArgb(89, 89, 89));
             
             foreach (var edge in triangle.Edges)
             {

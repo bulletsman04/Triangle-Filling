@@ -24,7 +24,6 @@ namespace ViewModels
         public PropertyObserver<TriangleSettings> TriangleSettingObserver { get; set; }
         public PropertyObserver<TriangleSettings> TriangleSettingObserver2 { get; set; }
         private static System.Timers.Timer _timer;
-        private bool isAnim = false;
         private int _xInc=1;
         private bool _mutex = false;
         
@@ -48,17 +47,14 @@ namespace ViewModels
                 .RegisterHandler(n => n.IsLightMouse, PropertyChangedHandler)
                 .RegisterHandler(n => n.IsLightAnimation, PropertyChangedHandler)
                 .RegisterHandler(n => n.IsLightAnimation, StartLightAnimation)
-                    .RegisterHandler(n => n.HeightMap, PropertyChangedHandler)
-                    .RegisterHandler(n => n.NormalMap, PropertyChangedHandler)
-                    .RegisterHandler(n => n.IsNormalConst, PropertyChangedHandler)
-                    .RegisterHandler(n => n.IsHeightConst, PropertyChangedHandler)
+                    .RegisterHandler(n => n.HeightMap, NMapChangedHandler)
+                    .RegisterHandler(n => n.NormalMap, NMapChangedHandler)
+                    .RegisterHandler(n => n.IsNormalConst, NMapChangedHandler)
+                    .RegisterHandler(n => n.IsHeightConst, NMapChangedHandler)
                     .RegisterHandler(n => n.IsPhong, PropertyChangedHandler)
                     .RegisterHandler(n => n.LambertRate, PropertyChangedHandler)
                     .RegisterHandler(n => n.PhongRate, PropertyChangedHandler)
                     .RegisterHandler(n => n.MPhong, PropertyChangedHandler)
-
-
-
                 ;
 
 
@@ -84,6 +80,11 @@ namespace ViewModels
         }
         private void PropertyChangedHandler(Settings ts)
         {
+            CanvasViewModel.WorkingArea?.RepaintBitmap();
+        }
+        private void NMapChangedHandler(Settings ts)
+        {
+            Settings.CalculateNMap();
             CanvasViewModel.WorkingArea?.RepaintBitmap();
         }
 
