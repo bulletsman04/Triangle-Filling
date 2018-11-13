@@ -63,9 +63,9 @@ namespace Models.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap brick {
+        internal static System.Drawing.Bitmap brick_normalmap1 {
             get {
-                object obj = ResourceManager.GetObject("brick", resourceCulture);
+                object obj = ResourceManager.GetObject("brick_normalmap1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Models.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap brick_heightmap {
+        internal static System.Drawing.Bitmap LavaCrackedHeavy001_DISP_1K_2x {
             get {
-                object obj = ResourceManager.GetObject("brick_heightmap", resourceCulture);
+                object obj = ResourceManager.GetObject("LavaCrackedHeavy001_DISP_1K_2x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,29 +83,9 @@ namespace Models.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap brick_normalmap {
+        internal static System.Drawing.Bitmap LavaCrackedHeavy001_sphere {
             get {
-                object obj = ResourceManager.GetObject("brick_normalmap", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap heightmap {
-            get {
-                object obj = ResourceManager.GetObject("heightmap", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap normal_map {
-            get {
-                object obj = ResourceManager.GetObject("normal_map", resourceCulture);
+                object obj = ResourceManager.GetObject("LavaCrackedHeavy001_sphere", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

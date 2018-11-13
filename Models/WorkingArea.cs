@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,11 +58,11 @@ namespace Models
             Triangle1.TriangleSettings = settings1;
             Settings.TriangleSettingsList.Add(settings1);
             int x1, y1;
-            x1 = _width / 8;
-            y1 = _height / 6;
+            x1 = _width / 20 ;
+            y1 = 20;
             Vertex v1 = new Vertex(x1,y1);
-            Vertex v2 = new Vertex(x1, 3*y1);
-            Vertex v3 = new Vertex(5*x1, y1);
+            Vertex v2 = new Vertex(_width - x1, y1);
+            Vertex v3 = new Vertex(x1, 20*y1);
             Edge e1 = new Edge(v1,v2);
             Edge e2 = new Edge(v2,v3);
             Edge e3 = new Edge(v3, v1);
@@ -71,13 +72,14 @@ namespace Models
             Triangle1.MoveVector = new Vector2D(Triangle1.V1StartPoint, Triangle1.V1StartPoint);
 
             TriangleSettings settings2 = new TriangleSettings();
+            settings2.PickedColor = LibrariesConverters.ColorToVector(Color.Firebrick);
             Triangle2.TriangleSettings = settings2;
             Settings.TriangleSettingsList.Add(settings2);
            
 
-            Vertex v4 = new Vertex(_width - x1, _height - y1);
-            Vertex v5 = new Vertex(_width - 3 * x1, _height - 3 * y1);
-            Vertex v6 = new Vertex(_width - 5 * x1, _height - y1);
+            Vertex v4 = new Vertex(_width - x1, 20 * y1 + 15);
+            Vertex v5 = new Vertex(_width - x1, y1 + 15);
+            Vertex v6 = new Vertex(x1 ,20*y1 + 15);
             Edge e4 = new Edge(v4, v5);
             Edge e5 = new Edge(v5, v6);
             Edge e6 = new Edge(v6, v4);
@@ -93,6 +95,8 @@ namespace Models
 
         public void RepaintBitmap()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             DirectBitmap db = new DirectBitmap(_width, _height);
             Bitmap bitmap = db.Bitmap;
 
@@ -113,7 +117,10 @@ namespace Models
 
                 db.Dispose();
             }
-            
+            sw.Stop();
+            int frames = (int) (1000 / sw.ElapsedMilliseconds);
+            Settings.Fps = frames;
+
         }
 
         private void DrawPolygon(Triangle triangle, Graphics gr)

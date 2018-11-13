@@ -159,7 +159,7 @@ namespace Models
             if (G > 1) G = 1;
             if (B < 0) B = 0;
             if (B > 1) B = 1;
-            return Color.FromArgb((int)Math.Round(255 * R), (int)Math.Round(255 * G), (int)Math.Round(255 * B));
+            return Color.FromArgb((byte)Math.Round(255 * R), (byte)Math.Round(255 * G), (byte)Math.Round(255 * B));
 
         }
 

@@ -69,6 +69,8 @@
              <RowDefinition Height="Auto"></RowDefinition>
              <RowDefinition Height="Auto"></RowDefinition>
              <RowDefinition Height="Auto"></RowDefinition>
+             <RowDefinition Height="Auto"></RowDefinition>
+
                 </Grid.RowDefinitions>
         <Border Style="{StaticResource BorderStyle}" Grid.Row="0">
         <StackPanel Style="{StaticResource StackStyle}" >
@@ -177,7 +179,7 @@
 
             </StackPanel>
         </Border>
-        <Border Style="{StaticResource BorderStyle}" BorderThickness="0" Grid.Row="7">
+        <Border Style="{StaticResource BorderStyle}"  Grid.Row="7">
             <StackPanel Style="{StaticResource StackStyle}" >
                         <TextBlock Style="{StaticResource TextStyle}">Wpływ czynników</TextBlock>
                 <WrapPanel Style="{StaticResource WrapStyle}">
@@ -195,7 +197,15 @@
 
                     </StackPanel>
         </Border>
-
+                <Border Style="{StaticResource BorderStyle}" BorderThickness="0" Grid.Row="8">
+            <StackPanel Style="{StaticResource StackStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}">FPS</TextBlock>
+                <WrapPanel Style="{StaticResource WrapStyle}">
+                    <TextBlock Margin="5 0 0 0 " FontSize="10" Text="{Binding Settings.Fps}"></TextBlock>
+                </WrapPanel>
+              
+            </StackPanel>
+        </Border>
 
             </Grid>
     </ScrollViewer>

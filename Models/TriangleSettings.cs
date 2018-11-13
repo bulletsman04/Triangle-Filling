@@ -11,17 +11,17 @@ using PixelMapSharp;
 
 namespace Models
 {
-    public class TriangleSettings:ObservableObject
+    public class TriangleSettings: ObservableObject
     {
-        private bool isColor = false;
+        private bool _isColor = false;
         private Vector3 _pickedColor = new Vector3(0,0,0);
-        private Vector3[,] _pickedTriangleTexture = LibrariesConverters.BitmapToVectors(Resources.normal_map);
+        private Vector3[,] _pickedTriangleTexture = LibrariesConverters.BitmapToVectors(Resources.LavaCrackedHeavy001_sphere);
         public bool IsColor
         {
-            get { return isColor; }
+            get => _isColor;
             set
             {
-                isColor = value;
+                _isColor = value;
                 RaisePropertyChanged("IsColor");
             }
         }

@@ -118,19 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Textures\brick.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="brick_normalmap1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brick_normalmap1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="brick_heightmap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Textures\brick_heightmap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LavaCrackedHeavy001_DISP_1K_2x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LavaCrackedHeavy001_DISP_1K@2x.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="brick_normalmap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Textures\brick_normalmap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="heightmap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Textures\heightmap.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="normal_map" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Textures\normal_map.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LavaCrackedHeavy001_sphere" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LavaCrackedHeavy001_sphere.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

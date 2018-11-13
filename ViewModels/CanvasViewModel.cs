@@ -71,7 +71,7 @@ namespace ViewModels
             }
             else if(Settings.IsLightMouse == true)
             {
-                _settings.LightPoint = new Point3D((int)mousePoint.X, (int)-mousePoint.Y, 300);
+                _settings.LightPoint = new Point3D((int)mousePoint.X, (int)-mousePoint.Y, 100);
                 WorkingArea.RepaintBitmap();
 
             }

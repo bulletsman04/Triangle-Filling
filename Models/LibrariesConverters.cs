@@ -46,7 +46,7 @@ namespace Models
 
         public static Vector3 ColorToNormalVector(Color color)
         {
-            return new Vector3(((float)color.R * 2 / 255 - 1), ((float)color.G * 2 / 255 - 1), (float)color.B / 255);
+            return new Vector3(((float)color.R * 2 / 255f - 1), ((float)color.G * 2 / 255f - 1), (float)color.B / 255);
         }
 
         public static Vector3[,] BitmapToVectors(Bitmap bitmap)

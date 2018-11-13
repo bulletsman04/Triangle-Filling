@@ -112,5 +112,23 @@
   <ItemGroup>
     <Resource Include="Textures\brick.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GroundForest003_Sphere.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GroundForest003_DISP_1K.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GroundForest003_NRM_1K.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LavaCrackedHeavy001_sphere.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LavaCrackedHeavy001_DISP_1K%402x.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\brick_normalmap1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

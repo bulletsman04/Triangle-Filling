@@ -15,8 +15,8 @@ namespace Models
 {
     public class Settings: ObservableObject
     {
-        private int _lightAnimRadius = 30;
-        private Vector3 _lightColor = new Vector3(1,1,1);
+        private int _lightAnimRadius = 50;
+        private Vector3 _lightColor = LibrariesConverters.ColorToVector(Color.SandyBrown);
         private Point3D _lightPoint = new Point3D(300,-200,100);
         private PixelMap _normalMap;
         private PixelMap _heightMap;
@@ -35,14 +35,15 @@ namespace Models
 
         private int width;
         private int height;
+        private int _fps;
         public Vector3[,] NMap { get; set; } 
 
 
         public Settings()
         {
           
-            _normalMap = PixelMap.SlowLoad(Resources.normal_map);
-            _heightMap = PixelMap.SlowLoad(Resources.heightmap);
+            _normalMap = PixelMap.SlowLoad(Resources.brick_normalmap1);
+            _heightMap = PixelMap.SlowLoad(Resources.LavaCrackedHeavy001_DISP_1K_2x);
            
             TriangleSettingsList = new ObservableCollection<TriangleSettings>();
             
@@ -257,6 +258,16 @@ namespace Models
             {
                 _heightRate = value;
                 RaisePropertyChanged("HeightRate");
+            }
+        }
+
+        public int Fps
+        {
+            get { return _fps; }
+            set
+            {
+                _fps = value;
+                RaisePropertyChanged("Fps");
             }
         }
 
