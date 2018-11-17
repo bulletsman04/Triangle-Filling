@@ -101,8 +101,7 @@ namespace ViewModels
             }
             else
             {
-                
-                    _timer.Stop();
+                _timer.Stop();
             }
            
         }
