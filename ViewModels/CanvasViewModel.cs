@@ -17,7 +17,6 @@ namespace ViewModels
     public class CanvasViewModel: ObservableObject
     {
         private WorkingArea _workingArea;
-        private Settings _settings;
         private Point _mousePoint;
         private Triangle _movedTriangle;
         public  Image image { get; set; }
@@ -31,11 +30,7 @@ namespace ViewModels
             } }
         public Vertex MovedVertex { get; set; }
 
-        public Settings Settings
-        {
-            get { return _settings; }
-            set { _settings = value; }
-        }
+        public Settings Settings { get; set; }
 
         public CanvasViewModel(Settings settings)
         {
@@ -50,7 +45,7 @@ namespace ViewModels
                 _movedTriangle = WorkingArea.CheckForClickedPolygon(mousePoint);
                 _mousePoint = mousePoint;
             }
-            // zapamiętać punkt myszy i w mousemove przesuwać o wektor punkty a punkt myszy aktualizować
+          
         }
         public void HandleMouseMove(Point mousePoint)
         {
@@ -71,7 +66,7 @@ namespace ViewModels
             }
             else if(Settings.IsLightMouse == true)
             {
-                _settings.LightPoint = new Point3D((int)mousePoint.X, (int)-mousePoint.Y, 100);
+                Settings.LightPoint = new Point3D((int)mousePoint.X, (int)-mousePoint.Y, 100);
                 WorkingArea.RepaintBitmap();
 
             }

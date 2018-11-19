@@ -40,18 +40,12 @@ namespace ViewModels
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             
-            // Set filter for file extension and default file extension 
-            
             dlg.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*"; ;
 
-            // Display OpenFileDialog by calling ShowDialog method 
             bool? result = dlg.ShowDialog();
 
-
-            // Get the selected file name and display in a TextBox 
             if (result == true)
             {
-                // Open document 
                 string filename = dlg.FileName;
                 int i = int.Parse(index);
                 switch (i)
