@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    // ToDo: Zmienić na strukturę
     public class Point3D
     {
         public int X { get; set; }

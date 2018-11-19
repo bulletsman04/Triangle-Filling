@@ -57,19 +57,24 @@ namespace Models
             TriangleSettings settings1 = new TriangleSettings();
             Triangle1.TriangleSettings = settings1;
             Settings.TriangleSettingsList.Add(settings1);
+
             int x1, y1;
             x1 = _width / 20 ;
             y1 = 20;
+
             Vertex v1 = new Vertex(x1,y1);
             Vertex v2 = new Vertex(_width - x1, y1);
             Vertex v3 = new Vertex(x1, 20*y1);
             Edge e1 = new Edge(v1,v2);
             Edge e2 = new Edge(v2,v3);
             Edge e3 = new Edge(v3, v1);
+
             Triangle1.Vertices.AddRange(new []{v1,v2,v3});
             Triangle1.Edges.AddRange(new []{e1,e2,e3});
             Triangle1.V1StartPoint = new Point(x1,y1);
             Triangle1.MoveVector = new Vector2D(Triangle1.V1StartPoint, Triangle1.V1StartPoint);
+
+
 
             TriangleSettings settings2 = new TriangleSettings();
             settings2.PickedColor = LibrariesConverters.ColorToVector(Color.Firebrick);
@@ -80,9 +85,11 @@ namespace Models
             Vertex v4 = new Vertex(_width - x1, 20 * y1 + 15);
             Vertex v5 = new Vertex(_width - x1, y1 + 15);
             Vertex v6 = new Vertex(x1 ,20*y1 + 15);
+
             Edge e4 = new Edge(v4, v5);
             Edge e5 = new Edge(v5, v6);
             Edge e6 = new Edge(v6, v4);
+
             Triangle2.Vertices.AddRange(new[] { v4, v5, v6 });
             Triangle2.Edges.AddRange(new[] { e4, e5, e6 });
             Triangle2.V1StartPoint = new Point(_width - x1, _height - y1);
@@ -111,8 +118,6 @@ namespace Models
                 DrawPolygon(Triangle1, gr);
                 DrawPolygon(Triangle2, gr);
 
-
-                
                 ImageSource = LibrariesConverters.BitmapToImageSource(bitmap);
 
                 db.Dispose();

@@ -21,6 +21,7 @@ namespace Models
             _settings = settings;
             _colorCalculator = new ColorCalculator();
         }
+        // ToDo: Zmienić na strukturę
         private class Node
         {
             public int Start { get; }
@@ -81,7 +82,7 @@ namespace Models
                     });
                  
                 }
-
+                // ToDo: Przerzucić wyżej
                 foreach (var t in AET)
                 {
                     t.X += t.iM;
@@ -89,7 +90,7 @@ namespace Models
             }
         }
 
-        private static void CheckNeighbour(List<Node> AET, int i, Vertex Pi, int iNext, Vertex PiNext)
+        private  void CheckNeighbour(List<Node> AET, int i, Vertex Pi, int iNext, Vertex PiNext)
         {
             if (PiNext.Y > Pi.Y)
             {

@@ -32,11 +32,12 @@ namespace Models
         private  float _lambertRate = 1f;
         private float _phongRate = 0.2f;
         private float _heightRate = 0.02f;
-
         private int width;
         private int height;
         private int _fps;
-        public Vector3[,] NMap { get; set; } 
+        public Vector3[,] NMap { get; set; }
+
+        public ObservableCollection<TriangleSettings> TriangleSettingsList { get; set; }
 
 
         public Settings()
@@ -110,7 +111,6 @@ namespace Models
             }
         }
 
-        public ObservableCollection<TriangleSettings> TriangleSettingsList { get; set; }
 
         public bool IsPhong
         {

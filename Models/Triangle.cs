@@ -8,10 +8,9 @@ using System.Windows;
 
 namespace Models
 {
-    public class Triangle
+    public class Triangle: Figure
     {
-        public List<Vertex> Vertices { get; set; }
-        public List<Edge> Edges { get; set; }
+      
         public TriangleSettings TriangleSettings { get; set; }
         public Point V1StartPoint { get; set; }
         public Vector2D MoveVector { get; set; }

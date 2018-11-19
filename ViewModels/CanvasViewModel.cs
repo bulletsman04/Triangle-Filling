@@ -19,7 +19,7 @@ namespace ViewModels
         private WorkingArea _workingArea;
         private Point _mousePoint;
         private Triangle _movedTriangle;
-        public  Image image { get; set; }
+       // public  Image image { get; set; }
         public WorkingArea WorkingArea
         {
             get => _workingArea;
