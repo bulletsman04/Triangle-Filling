@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="DirectBitmap.cs" />
     <Compile Include="Edge.cs" />
-    <Compile Include="Filling.cs" />
+    <Compile Include="ColorCalculator.cs" />
     <Compile Include="LibrariesConverters.cs" />
     <Compile Include="MyGraphics.cs" />
     <Compile Include="Point3D.cs" />
