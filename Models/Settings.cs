@@ -27,6 +27,8 @@ namespace Models
         private bool _isLightMouse = false;
         private bool _isLightAnimation = false;
         private bool _isNormalConst = false;
+        private bool _isNormalTexture = false;
+        private bool _isNormalFunction = false;
         private bool _isHeightConst = false;
         private bool _isPhong = false;
         private  float _lambertRate = 1f;
@@ -57,7 +59,7 @@ namespace Models
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    N = IsNormalConst ? NormalVector : LibrariesConverters.ColorToNormalVector(NormalMap[i % NormalMap.Width, j % NormalMap.Height].Color);
+                    N = IsNormalConst ? NormalVector : IsNormalFunction ? CalculateNormalFromFunction(i,j) : LibrariesConverters.ColorToNormalVector(NormalMap[i % NormalMap.Width, j % NormalMap.Height].Color);
 
                     N = Vector3.Normalize(N);
 
@@ -78,6 +80,26 @@ namespace Models
                     NMap[i, j] = N;
                 }
             }
+        }
+
+        private Vector3 CalculateNormalFromFunction(int x, int y)
+        {
+            Vector3 zx = new Vector3(1,0,(float)((2f / 3)*Math.Cos(x/60f)*Math.Cos(y / 40f)));
+            Vector3 zy = new Vector3(0, 1, (float)(-(1f / 1) * Math.Sin(x / 60f) * Math.Sin(y / 40f)));
+            Vector3 Nxy = Vector3.Cross(zx,zy);
+            Nxy = new Vector3(Nxy.X,Nxy.Y,Math.Abs(Nxy.Z));
+            return Nxy;
+        }
+
+        private Vector3 CrossProduct(Vector3 v1, Vector3 v2)
+        {
+            float x, y, z;
+            x = v1.Y * v2.Z - v2.Y * v1.Z;
+            y = (v1.X * v2.Z - v2.X * v1.Z) * -1;
+            z = v1.X * v2.Y - v2.X * v1.Y;
+
+            var rtnvector = new Vector3(x, y, z);
+            return rtnvector;
         }
 
         public bool IsLightConst
@@ -268,6 +290,26 @@ namespace Models
             {
                 _fps = value;
                 RaisePropertyChanged("Fps");
+            }
+        }
+
+        public bool IsNormalFunction
+        {
+            get { return _isNormalFunction; }
+            set
+            {
+                _isNormalFunction = value;
+                RaisePropertyChanged("IsNormalFunction");
+            }
+        }
+
+        public bool IsNormalTexture
+        {
+            get { return _isNormalTexture; }
+            set
+            {
+                _isNormalTexture = value;
+                RaisePropertyChanged("IsNormalTexture");
             }
         }
 

@@ -1,0 +1,17 @@
+GK - projekt nr 2
+
+Micha³ Wielgosz
+
+Ogólne informacje:
+1) 'Solution' podzielone jest na 4 projekty: GKLab2, Models, ViewModels i Views. Wynika to z przyjêtego 
+wzorca projektowania MVVM. GKLab2 jest jedynie "kontenerem", natomiast logika, warstwa logiczna dla
+widoków i widoki znajduj¹ siê w projektach odpowiednio: Models, ViewModel i Views.
+2) Klasa WrokingArea w projekcie Models odpowiada za logikê zwi¹zan¹ z bitmap¹, trzyma trójk¹ty i 
+przerysowuje bitmapê
+3) Klasa MyGraphics zawiera metodê wype³niaj¹c¹ wielok¹ty
+4) Klasa ColorCalculator zawiera metodê do obliczenia koloru pixela (czêœæ zwi¹zana z Normal i Height
+Map¹ przeliczana jest w klasie Settings)
+
+
+Klawiszologia:
+1) Trójk¹ty jak i wierzcho³ki poruszamy z wciœniêtym LPM

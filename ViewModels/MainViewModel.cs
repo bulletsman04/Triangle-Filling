@@ -50,6 +50,8 @@ namespace ViewModels
                 .RegisterHandler(n => n.HeightMap, NMapChangedHandler)
                 .RegisterHandler(n => n.NormalMap, NMapChangedHandler)
                 .RegisterHandler(n => n.IsNormalConst, NMapChangedHandler)
+                .RegisterHandler(n => n.IsNormalTexture, NMapChangedHandler)
+                .RegisterHandler(n => n.IsNormalFunction, NMapChangedHandler)
                 .RegisterHandler(n => n.IsHeightConst, NMapChangedHandler)
                 .RegisterHandler(n => n.IsPhong, PropertyChangedHandler)
                 .RegisterHandler(n => n.LambertRate, PropertyChangedHandler)

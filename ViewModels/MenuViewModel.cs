@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
+using ViewModels.Properties;
 
 namespace ViewModels
 {
@@ -18,6 +21,10 @@ namespace ViewModels
 
         RelayCommand _closeCommand;
         RelayCommand _minimizeCommand;
+        RelayCommand _documentationCommand;
+
+        public bool shouldInvoke { get; set; } = true;
+
 
         public ICommand CloseCommand
         {
@@ -46,6 +53,30 @@ namespace ViewModels
                         null);
                 }
                 return _minimizeCommand;
+            }
+        }
+
+        public ICommand DocumentationCommand
+        {
+            get
+            {
+                if (_documentationCommand == null)
+                {
+                    _documentationCommand = new RelayCommand(() =>
+                        {
+                            try
+                            {
+                                if(shouldInvoke)
+                                Process.Start(@"..\..\..\Dokumentacja.txt");
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        },
+                        null);
+                }
+                return _documentationCommand;
             }
         }
 

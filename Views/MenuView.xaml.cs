@@ -37,9 +37,19 @@ namespace Views
         private void MenuView_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
+            {
+               
                 Application.Current.MainWindow.DragMove();
+            }
+
         }
 
         private MenuViewModel _menuViewModel;
+
+
+        private void Documentation_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _menuViewModel.DocumentationCommand.Execute(null);
+        }
     }
 }

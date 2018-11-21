@@ -37,8 +37,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MvvmFoundation.Wpf">
-      <HintPath>..\..\..\..\Desktop\BubbleBurst\Dependencies\MvvmFoundation.Wpf.dll</HintPath>
+    <Reference Include="MvvmFoundation.Wpf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MvvmFoundation.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="PixelMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PixelMap.1.0.1\lib\PixelMap.dll</HintPath>

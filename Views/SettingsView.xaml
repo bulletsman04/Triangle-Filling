@@ -132,12 +132,15 @@
                     <RadioButton IsChecked="{Binding Settings.IsNormalConst}" GroupName="Normal">Stały [0,0,1]</RadioButton>
                 </WrapPanel>
                 <WrapPanel Style="{StaticResource WrapStyle}">
-                    <RadioButton IsChecked="{Binding Settings.IsNormalConst,Converter={StaticResource BoolConverter}}" GroupName="Normal">Tekstura</RadioButton>
+                    <RadioButton IsChecked="{Binding Settings.IsNormalTexture}" GroupName="Normal">Tekstura</RadioButton>
                     <Image Source="{Binding Settings.NormalMap, Mode=OneWay, Converter={StaticResource TextureConverter}}"></Image>
                     <Button Command="{Binding SetTextureCommand}" CommandParameter="2">Zmień</Button>
                 </WrapPanel>
-           
-            </StackPanel>
+                <WrapPanel Style="{StaticResource WrapStyle}">
+                    <RadioButton IsChecked="{Binding Settings.IsNormalFunction}" GroupName="Normal">Z funkcji A*sin(ax)*cos(by)</RadioButton>
+                </WrapPanel>
+
+                    </StackPanel>
         </Border>
         <Border Style="{StaticResource BorderStyle}" Grid.Row="5">
             <StackPanel Style="{StaticResource StackStyle}" >
