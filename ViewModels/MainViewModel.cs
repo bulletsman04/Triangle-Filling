@@ -16,7 +16,6 @@ namespace ViewModels
 {
     public class MainViewModel
     {
-        public MenuViewModel MenuViewModel { get; set; }
         public CanvasViewModel CanvasViewModel { get; set; }
         public SettingsViewModel SettingsViewModel { get; set; }
         public Settings Settings { get; set; }
@@ -31,7 +30,6 @@ namespace ViewModels
         public MainViewModel()
         {
             Settings = new Settings();
-            MenuViewModel = new MenuViewModel();
             CanvasViewModel = new CanvasViewModel(Settings);
             SettingsViewModel = new SettingsViewModel(Settings);
             RegisterPropertiesChanged();

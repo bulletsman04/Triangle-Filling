@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="CanvasViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
-    <Compile Include="MenuViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
